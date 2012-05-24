@@ -158,76 +158,65 @@
         </table> 
     </body>
 
-    <SCRIPT type="text/javascript">
-        function initform()
-        {
-        
+<SCRIPT type="text/javascript">
+	
+	//$(document).ready(function(){
+		initform();
+	//});
+	
+	function initform()
+	{
+		document.getElementById('divrad').style.visibility="hidden";
+		document.getElementById('btnsubmit1').disabled=true;
+		document.getElementById('btnsubmit2').disabled=true;
+		document.getElementById('btnsubmit3').disabled=true;
+		document.getElementById('btnsubmit4').disabled=true;
+		document.getElementById('btnsubmit5').disabled=true;
+		document.getElementById('btnsubmit11').disabled=true;
+		document.getElementById('btnsubmit21').disabled=true;
+		document.getElementById('btnsubmit31').disabled=true;
+		document.getElementById('btnsubmit41').disabled=true;
+		document.getElementById('btnsubmit51').disabled=true;
+	}
+	
+	function extracheck(tabid,conid)
+	{
+		for (Count = 0; Count < document.forms[0].radgroup.length; Count++)
+		{
+			otab='tab'+(Count+1);
+			document.getElementById(otab).style.backgroundColor='#cccccc';
+			document.getElementById(otab).style.color='#000000';      
+		} 
+		 
+		document.getElementById(tabid).style.backgroundColor='#000000';
+		document.getElementById(tabid).style.color='#cccccc';      
 
-        document.getElementById('divrad').style.visibility="hidden";
-
-        document.getElementById('btnsubmit1').disabled=true;
-        document.getElementById('btnsubmit2').disabled=true;
-        document.getElementById('btnsubmit3').disabled=true;
-        document.getElementById('btnsubmit4').disabled=true;
-        document.getElementById('btnsubmit5').disabled=true;
-        document.getElementById('btnsubmit11').disabled=true;
-        document.getElementById('btnsubmit21').disabled=true;
-        document.getElementById('btnsubmit31').disabled=true;
-        document.getElementById('btnsubmit41').disabled=true;
-        document.getElementById('btnsubmit51').disabled=true;
-        
-        
-        }
-        
-        function extracheck(tabid,conid)
-        {
-       
-        for (Count = 0; Count < document.forms[0].radgroup.length; Count++)
-        {
-        otab='tab'+(Count+1);
-        document.getElementById(otab).style.backgroundColor='#cccccc';
-        document.getElementById(otab).style.color='#000000';      
-        } 
-             
-        document.getElementById(tabid).style.backgroundColor='#000000';
-        document.getElementById(tabid).style.color='#cccccc';      
-
-          
-        if((conid==null)||(conid=="")){
-        document.getElementById('btnsubmit1').disabled=true;
-        document.getElementById('btnsubmit2').disabled=true;
-        document.getElementById('btnsubmit3').disabled=true;
-        document.getElementById('btnsubmit4').disabled=false;
-        document.getElementById('btnsubmit5').disabled=false;
-        document.getElementById('btnsubmit11').disabled=true;
-        document.getElementById('btnsubmit21').disabled=true;
-        document.getElementById('btnsubmit31').disabled=true;
-        document.getElementById('btnsubmit41').disabled=false;
-        document.getElementById('btnsubmit51').disabled=false;
-
-}
-        else{
-        document.getElementById('btnsubmit1').disabled=false;
-        document.getElementById('btnsubmit2').disabled=false;
-        document.getElementById('btnsubmit3').disabled=false;
-        document.getElementById('btnsubmit4').disabled=true;
-        document.getElementById('btnsubmit5').disabled=true;
-        document.getElementById('btnsubmit11').disabled=false;
-        document.getElementById('btnsubmit21').disabled=false;
-        document.getElementById('btnsubmit31').disabled=false;
-        document.getElementById('btnsubmit41').disabled=true;
-        document.getElementById('btnsubmit51').disabled=true;
-        
-        
-        }
-        }
-
-       
-
-
-        
-
-    </SCRIPT>
+		if((conid==null)||(conid=="")){
+			document.getElementById('btnsubmit1').disabled=true;
+			document.getElementById('btnsubmit2').disabled=true;
+			document.getElementById('btnsubmit3').disabled=true;
+			document.getElementById('btnsubmit4').disabled=false;
+			document.getElementById('btnsubmit5').disabled=false;
+			document.getElementById('btnsubmit11').disabled=true;
+			document.getElementById('btnsubmit21').disabled=true;
+			document.getElementById('btnsubmit31').disabled=true;
+			document.getElementById('btnsubmit41').disabled=false;
+			document.getElementById('btnsubmit51').disabled=false;
+		}
+		else{
+			document.getElementById('btnsubmit1').disabled=false;
+			document.getElementById('btnsubmit2').disabled=false;
+			document.getElementById('btnsubmit3').disabled=false;
+			document.getElementById('btnsubmit4').disabled=true;
+			document.getElementById('btnsubmit5').disabled=true;
+			document.getElementById('btnsubmit11').disabled=false;
+			document.getElementById('btnsubmit21').disabled=false;
+			document.getElementById('btnsubmit31').disabled=false;
+			document.getElementById('btnsubmit41').disabled=true;
+			document.getElementById('btnsubmit51').disabled=true;
+		}
+	}
+</SCRIPT>
 
 </html:html>
 

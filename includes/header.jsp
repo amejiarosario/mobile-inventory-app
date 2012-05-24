@@ -1,3 +1,17 @@
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+
+<%@taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@taglib uri="http://jakarta.apache.org/struts/tags-logic" prefix="logic" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="org.apache.commons.logging.Log"%>
+<%@page import="org.apache.commons.logging.LogFactory"%>
+<%
+Log activity_log = LogFactory.getLog("activity.tracking");
+Log error_log = LogFactory.getLog("errorlog.tracking");
+String err_msg = (String) request.getAttribute("err_msg");
+%>
 <!DOCTYPE html>
 <html>
     <head>
