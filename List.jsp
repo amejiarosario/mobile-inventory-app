@@ -1,20 +1,67 @@
 <%@include file="includes/header.jsp"%>
 
 <!-- Sub header -->
-<div data-theme="b" data-role="header" class="ui-header ui-bar-b" role="banner">
-				<h3 class="ui-title" role="heading" aria-level="1">
-						Item Locations
-				</h3>
-				<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">
-						Back
-				</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>
+<div data-theme="b" data-role="header">
+		<h3>
+				Item Locations
+		</h3>
+		<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="page1" data-icon="arrow-l" data-iconpos="left">
+				Back
+		</a>
 </div>
 
 <!-- show errors -->
 <html:errors/>
 
-
-
+<!-- show details  -->
+<div data-role="content">
+		<div data-role="collapsible-set" data-theme="e" data-content-theme="d">
+				<div data-role="collapsible" data-collapsed="true">
+						<h3>
+								Selected Item: <%= session.getAttribute("item_desc") %>
+						</h3>
+						<div data-role="fieldcontain">
+								<fieldset data-role="controlgroup" data-mini="true">
+										<label for="textinput1">
+												BU:
+										</label>
+										<input id="textinput1" placeholder="VICOR" value="<%= session.getAttribute("bu") %>" type="text" readonly="readonly" />
+								</fieldset>
+						</div>
+						<div data-role="fieldcontain">
+								<fieldset data-role="controlgroup">
+										<label for="textinput2">
+												Item ID:
+										</label>
+										<input id="textinput2" placeholder="03030" value="<%= session.getAttribute("item_id") %>" type="text" readonly="readonly" />
+								</fieldset>
+						</div>
+						<div data-role="fieldcontain">
+								<fieldset data-role="controlgroup">
+										<label for="textinput3">
+												Description:
+										</label>
+										<input id="textinput3" placeholder="DIODE ARRAY BAV70 SOT-23 SMD" value="<%= session.getAttribute("item_desc") %>" type="text" readonly="readonly"/>
+								</fieldset>
+						</div>
+				</div>
+		</div>
+		<ul data-role="listview" data-divider-theme="b" data-inset="true">
+				<li data-role="list-divider" role="heading">
+						Location | Qty  | Available | Container
+				</li>
+				<li data-theme="c">
+						<a href="#page1" data-transition="slide">
+								ARROW	01	AA	02 | 50000 EA | 50000 EA | --
+						</a>
+				</li>
+				<li data-theme="c">
+						<a href="#page1" data-transition="slide">
+								FTSMD	01	01	01 | 13900 EA | 13900 EA | --
+						</a>
+				</li>
+		</ul>
+</div>
 
 <!-- ---- -->
             
