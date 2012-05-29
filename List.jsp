@@ -47,19 +47,36 @@
 				</div>
 		</div>
 		<ul data-role="listview" data-divider-theme="b" data-inset="true">
+				<!-- Table Header -->
 				<li data-role="list-divider" role="heading">
 						Location | Qty  | Available | Container
 				</li>
+				
+				<!-- Table rows -->
+				<c:forEach var="output"  items="${ListForm.results}" varStatus="status">
 				<li data-theme="c">
 						<a href="#page1" data-transition="slide">
-								ARROW	01	AA	02 | 50000 EA | 50000 EA | --
+							<div>
+								<bean:write name="output" property="storage_area"/>
+								<bean:write name="output" property="stor_level_1"/>	
+								<bean:write name="output" property="stor_level_2"/>	
+								<bean:write name="output" property="stor_level_3"/>	
+							</div>
+							<div>
+								<bean:write name="output" property="qty"/> <bean:write name="output" property="uom"/> |
+								<bean:write name="output" property="qty_avail"/>
+								<bean:write name="output" property="uom"/>	|
+								<c:if test="${output.container_id ==null}">
+									--
+								</c:if>
+								<c:if test="${output.container_id !=null}">
+									${output.container_id}
+								</c:if>
+							</div>
 						</a>
 				</li>
-				<li data-theme="c">
-						<a href="#page1" data-transition="slide">
-								FTSMD	01	01	01 | 13900 EA | 13900 EA | --
-						</a>
-				</li>
+				</c:forEach>
+				
 		</ul>
 </div>
 
