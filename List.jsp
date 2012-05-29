@@ -1,6 +1,22 @@
 <%@include file="includes/header.jsp"%>
+
+<!-- Sub header -->
+<div data-theme="b" data-role="header" class="ui-header ui-bar-b" role="banner">
+				<h3 class="ui-title" role="heading" aria-level="1">
+						Item Locations
+				</h3>
+				<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="page1" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left ui-btn ui-shadow ui-btn-corner-all ui-btn-icon-left ui-btn-up-b" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">
+						Back
+				</span><span class="ui-icon ui-icon-arrow-l ui-icon-shadow">&nbsp;</span></span></a>
+</div>
+
+<!-- show errors -->
 <html:errors/>
-    
+
+
+
+
+<!-- ---- -->
             
         <table border="0" width="320" align="left" BGCOLOR="#cccccc">
             <tr height="5">
