@@ -1,8 +1,5 @@
 <%@include file="includes/header.jsp"%>
 <html:errors/>
-            
-            
-
          
 	<html:form action="/Select">
  	
@@ -52,12 +49,11 @@
       <div data-role="collapsible-set" data-theme="b" data-content-theme="c">
           <div data-role="collapsible" data-collapsed="" id="showHideCollapsible">
               <h3>
-                  <ul>
-										<b>BU:</b>&nbsp;&nbsp;<%= session.getAttribute("bu") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<b>Item ID:</b>&nbsp;&nbsp;<%= session.getAttribute("item_id") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<br>
-										<%= session.getAttribute("item_desc") %>
-									</ul>
+                  <div>
+										<li><b>BU:</b> <%= session.getAttribute("bu") %> </li>
+										<li><b>Item ID:</b> <%= session.getAttribute("item_id") %> </li>
+										<li><%= session.getAttribute("item_desc") %></li>
+									</div>
               </h3>
               <div data-role="fieldcontain">
                   <fieldset data-role="controlgroup" data-type="vertical">
@@ -135,12 +131,9 @@
 	$(document).ready(function(){
    	$("#contPresent").hide();
 		$("#contAbsent").hide();
-   
 	});
 	
-	$("input[name='radgroup']").change(
-	function()
-	{
+	$("input[name='radgroup']").change(function(){
 		var rad = $("input[name='radgroup']:checked").val();
 		var arrayOfEle = rad.split("|");
 		var container = arrayOfEle[0];
@@ -154,8 +147,7 @@
 				$("#contPresent").hide("slow");
 				$("#contAbsent").show("slow");
 		}
-	}
-);
+	});
 
 </SCRIPT>
 <%@include file="includes/footer.jsp"%>

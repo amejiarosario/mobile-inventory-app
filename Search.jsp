@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" data-inline="true" />
             </div>
 	</html:form>
 </jsp:useBean>
