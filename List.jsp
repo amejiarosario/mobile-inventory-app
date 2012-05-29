@@ -49,13 +49,16 @@
 		<ul data-role="listview" data-divider-theme="b" data-inset="true">
 				<!-- Table Header -->
 				<li data-role="list-divider" role="heading">
-						Location | Qty  | Available | Container
+						<h1>
+							<div>Location</div> 
+							<div>Qty  | Available | Container</div>
+						<h1>
 				</li>
 				
 				<!-- Table rows -->
 				<c:forEach var="output"  items="${ListForm.results}" varStatus="status">
 				<li data-theme="c">
-						<a href="#page1" data-transition="slide">
+						<a href="#actions" data-transition="slide">
 							<div>
 								<bean:write name="output" property="storage_area"/>
 								<bean:write name="output" property="stor_level_1"/>	
