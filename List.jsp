@@ -19,7 +19,7 @@
 		<!-- /sub-header -->
 
 		<!-- show errors -->
-		<html:errors/>
+		<html:errors />
 
 		<!-- show details  -->
 		<div data-role="content">
@@ -89,11 +89,10 @@
 						</c:forEach>
 				</ul>
 		</div>
-		</div>
-		</div> 
-</div><!-- /main-page  -->
+</div>
+<!-- /main-page  -->
 
-
+<!-- actions -->
 <div data-role="page" id="actions">
 		<div data-theme="a" data-role="header">
 				<h3>
@@ -179,6 +178,13 @@
 						</li>
 				</ul>
 		</div>
+</div> <!-- /actions -->
+
+
+<!-- associate -->
+<div data-role="page" id="associate">
+	nothing yet
 </div>
+
 <%@include file="includes/footer.jsp"%>
 
