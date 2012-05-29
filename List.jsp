@@ -1,11 +1,7 @@
 <%@include file="includes/header.jsp"%>
 <!-- main-page -->
-<div data-role="page" data-theme="b" id="main" style="background: url('http://t1.gstatic.com/images?q=tbn:ANd9GcTNV8CYXH4P5tW5tGMGhrxdTo-8UqFYQrs4FLjJ1s4Mkre6jHhNbNdlPOiL') repeat">
-		<div data-theme="a" data-role="header">
-				<h3>
-						Vicor Inventory App
-				</h3>
-		</div>
+<div data-role="page" data-theme="b" id="list-do" style="background: url('http://t1.gstatic.com/images?q=tbn:ANd9GcTNV8CYXH4P5tW5tGMGhrxdTo-8UqFYQrs4FLjJ1s4Mkre6jHhNbNdlPOiL') repeat">
+		<%@include file="includes/app-header.jsp"%>
 
 		<!-- sub-header -->
 		<div data-theme="b" data-role="header">
@@ -38,10 +34,10 @@
 								</div>
 								<div data-role="fieldcontain">
 										<fieldset data-role="controlgroup">
-												<label for="textinput2">
+												<label for="item-id">
 														Item ID:
 												</label>
-												<input id="textinput2" value="<%= session.getAttribute("item_id") %>" type="text" readonly="readonly" />
+												<input id="item-id" value="<%= session.getAttribute("item_id") %>" type="text" readonly="readonly" />
 										</fieldset>
 								</div>
 								<div data-role="fieldcontain">
@@ -67,7 +63,7 @@
 						<c:forEach var="output"  items="${ListForm.results}" varStatus="status">
 						<li data-theme="c">
 								<a href="#actions" data-transition="slide">
-									<div>
+									<div id="storage-area">
 										<bean:write name="output" property="storage_area"/>
 										<bean:write name="output" property="stor_level_1"/>	
 										<bean:write name="output" property="stor_level_2"/>	
@@ -94,12 +90,8 @@
 
 <!-- actions -->
 <div data-role="page" id="actions">
-		<div data-theme="a" data-role="header">
-				<h3>
-						Vicor Inventory App
-				</h3>
-		</div>
-
+		<%@include file="includes/app-header.jsp"%>
+		
 		<!-- sub-header -->
 		<div data-theme="b" data-role="header">
 				<h3>
@@ -131,10 +123,10 @@
 								</div>
 								<div data-role="fieldcontain">
 										<fieldset data-role="controlgroup" data-mini="true">
-												<label for="textinput2">
+												<label for="storage-location">
 														Storage Location:
 												</label>
-												<input id="textinput2" placeholder="ARROW	01	AA	02" value="" type="text" />
+												<input id="storage-location" value="" type="text" /> <!-- placeholder="ARROW	01	AA	02" -->
 										</fieldset>
 								</div>
 								<div data-role="fieldcontain">
@@ -183,7 +175,63 @@
 
 <!-- associate -->
 <div data-role="page" id="associate">
-	nothing yet
+	<%@include file="includes/app-header.jsp"%>
+	
+	<!-- sub-header -->
+		<div data-theme="b" data-role="header">
+				<h3>
+						Associate
+				</h3>
+				<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
+						Back
+				</a>
+		</div>
+		<!-- /sub-header -->
+		
+		<div data-role="content">
+				<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
+						<div data-role="collapsible" data-collapsed="false">
+								<h3>
+										Original Location
+								</h3>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup">
+												<label for="textinput1">
+														Quantity:
+												</label>
+												<input id="textinput1" placeholder="" value="" type="text" />
+										</fieldset>
+								</div>
+						</div>
+				</div>
+				<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
+						<div data-role="collapsible" data-collapsed="false">
+								<h3>
+										Destination Location
+								</h3>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup">
+												<label for="textinput2">
+														Cont ID
+												</label>
+												<input id="textinput2" placeholder="K00434224A" value="" type="text" />
+										</fieldset>
+								</div>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup">
+												<label for="textinput3">
+														Stor Loc
+												</label>
+												<input id="textinput3" placeholder="RM 22 A 03" value="" type="text" />
+										</fieldset>
+								</div>
+						</div>
+				</div>
+				
+				<input type="submit" value="Submit" data-inline="true" data-theme="b" />
+		</div>		
+		
+	
 </div>
 
 <%@include file="includes/footer.jsp"%>

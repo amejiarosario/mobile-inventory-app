@@ -2,11 +2,7 @@
 
 <!-- main-page -->
 <div data-role="page" data-theme="b" id="page1" style="background: url('http://t1.gstatic.com/images?q=tbn:ANd9GcTNV8CYXH4P5tW5tGMGhrxdTo-8UqFYQrs4FLjJ1s4Mkre6jHhNbNdlPOiL') repeat">
-		<div data-theme="a" data-role="header">
-				<h3>
-						Vicor Inventory App
-				</h3>
-		</div>
+		<%@include file="includes/app-header.jsp"%>
 		
 		<!-- sub-header -->
 		<div data-theme="b" data-role="header">
