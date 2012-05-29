@@ -1,4 +1,4 @@
-        </div>
+        </div> <!-- data-role="page"  -->
         <script>
             //App custom javascript
         </script>
