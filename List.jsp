@@ -1,288 +1,184 @@
 <%@include file="includes/header.jsp"%>
+<!-- main-page -->
+<div data-role="page" data-theme="b" id="main" style="background: url('http://t1.gstatic.com/images?q=tbn:ANd9GcTNV8CYXH4P5tW5tGMGhrxdTo-8UqFYQrs4FLjJ1s4Mkre6jHhNbNdlPOiL') repeat">
+		<div data-theme="a" data-role="header">
+				<h3>
+						Vicor Inventory App
+				</h3>
+		</div>
 
-<!-- Sub header -->
-<div data-theme="b" data-role="header">
-		<h3>
-				Item Locations
-		</h3>
-		<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="page1" data-icon="arrow-l" data-iconpos="left">
-				Back
-		</a>
-</div>
+		<!-- sub-header -->
+		<div data-theme="b" data-role="header">
+				<h3>
+						Item Locations
+				</h3>
+				<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
+						Back
+				</a>
+		</div>
+		<!-- /sub-header -->
 
-<!-- show errors -->
-<html:errors/>
+		<!-- show errors -->
+		<html:errors/>
 
-<!-- show details  -->
-<div data-role="content">
-		<div data-role="collapsible-set" data-theme="e" data-content-theme="d">
-				<div data-role="collapsible" data-collapsed="true">
-						<h3>
-								Selected Item: <%= session.getAttribute("item_desc") %>
-						</h3>
-						<div data-role="fieldcontain">
-								<fieldset data-role="controlgroup" data-mini="true">
-										<label for="textinput1">
-												BU:
-										</label>
-										<input id="textinput1" placeholder="VICOR" value="<%= session.getAttribute("bu") %>" type="text" readonly="readonly" />
-								</fieldset>
-						</div>
-						<div data-role="fieldcontain">
-								<fieldset data-role="controlgroup">
-										<label for="textinput2">
-												Item ID:
-										</label>
-										<input id="textinput2" placeholder="03030" value="<%= session.getAttribute("item_id") %>" type="text" readonly="readonly" />
-								</fieldset>
-						</div>
-						<div data-role="fieldcontain">
-								<fieldset data-role="controlgroup">
-										<label for="textinput3">
-												Description:
-										</label>
-										<input id="textinput3" placeholder="DIODE ARRAY BAV70 SOT-23 SMD" value="<%= session.getAttribute("item_desc") %>" type="text" readonly="readonly"/>
-								</fieldset>
+		<!-- show details  -->
+		<div data-role="content">
+				<div data-role="collapsible-set" data-theme="e" data-content-theme="d">
+						<div data-role="collapsible" data-collapsed="true">
+								<h3>
+										Selected Item: <%= session.getAttribute("item_id") %> [<%= session.getAttribute("item_desc") %>]
+								</h3>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup" data-mini="true">
+												<label for="textinput1">
+														BU:
+												</label>
+												<input id="textinput1" value="<%= session.getAttribute("bu") %>" type="text" readonly="readonly" />
+										</fieldset>
+								</div>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup">
+												<label for="textinput2">
+														Item ID:
+												</label>
+												<input id="textinput2" value="<%= session.getAttribute("item_id") %>" type="text" readonly="readonly" />
+										</fieldset>
+								</div>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup">
+												<label for="textinput3">
+														Description:
+												</label>
+												<input id="textinput3" value='<%= session.getAttribute("item_desc") %>' type="text" readonly="readonly" size="80"/>
+										</fieldset>
+								</div>
 						</div>
 				</div>
+				<ul data-role="listview" data-divider-theme="b" data-inset="true">
+						<!-- Table Header -->
+						<li data-role="list-divider" role="heading">
+								<h1>
+									<div>Location</div> 
+									<div>Qty  | Available | Container</div>
+								<h1>
+						</li>
+						
+						<!-- Table rows -->
+						<c:forEach var="output"  items="${ListForm.results}" varStatus="status">
+						<li data-theme="c">
+								<a href="#actions" data-transition="slide">
+									<div>
+										<bean:write name="output" property="storage_area"/>
+										<bean:write name="output" property="stor_level_1"/>	
+										<bean:write name="output" property="stor_level_2"/>	
+										<bean:write name="output" property="stor_level_3"/>	
+									</div>
+									<div>
+										<bean:write name="output" property="qty"/> <bean:write name="output" property="uom"/> |
+										<bean:write name="output" property="qty_avail"/>
+										<bean:write name="output" property="uom"/>	|
+										<c:if test="${output.container_id ==null}">
+											--
+										</c:if>
+										<c:if test="${output.container_id !=null}">
+											${output.container_id}
+										</c:if>
+									</div>
+								</a>
+						</li>
+						</c:forEach>
+				</ul>
 		</div>
-		<ul data-role="listview" data-divider-theme="b" data-inset="true">
-				<!-- Table Header -->
-				<li data-role="list-divider" role="heading">
-						<h1>
-							<div>Location</div> 
-							<div>Qty  | Available | Container</div>
-						<h1>
-				</li>
-				
-				<!-- Table rows -->
-				<c:forEach var="output"  items="${ListForm.results}" varStatus="status">
-				<li data-theme="c">
-						<a href="#actions" data-transition="slide">
-							<div>
-								<bean:write name="output" property="storage_area"/>
-								<bean:write name="output" property="stor_level_1"/>	
-								<bean:write name="output" property="stor_level_2"/>	
-								<bean:write name="output" property="stor_level_3"/>	
-							</div>
-							<div>
-								<bean:write name="output" property="qty"/> <bean:write name="output" property="uom"/> |
-								<bean:write name="output" property="qty_avail"/>
-								<bean:write name="output" property="uom"/>	|
-								<c:if test="${output.container_id ==null}">
-									--
-								</c:if>
-								<c:if test="${output.container_id !=null}">
-									${output.container_id}
-								</c:if>
-							</div>
-						</a>
-				</li>
-				</c:forEach>
-				
-		</ul>
+		</div>
+		</div> 
+</div><!-- /main-page  -->
+
+
+<div data-role="page" id="actions">
+		<div data-theme="a" data-role="header">
+				<h3>
+						Vicor Inventory App
+				</h3>
+		</div>
+
+		<!-- sub-header -->
+		<div data-theme="b" data-role="header">
+				<h3>
+						Perform Action
+				</h3>
+				<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
+						Back
+				</a>
+		</div>
+		<!-- /sub-header -->
+
+		<!-- show errors -->
+		<html:errors/>
+		
+		
+		<div data-role="content">
+				<div data-role="collapsible-set" data-theme="e" data-content-theme="d">
+						<div data-role="collapsible" data-collapsed="true">
+								<h3>
+										Location Selected: ####
+								</h3>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup" data-mini="true">
+												<label for="textinput1">
+														Container Qty:
+												</label>
+												<input id="textinput1" placeholder="50000 EA" value="" type="text" />
+										</fieldset>
+								</div>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup" data-mini="true">
+												<label for="textinput2">
+														Storage Location:
+												</label>
+												<input id="textinput2" placeholder="ARROW	01	AA	02" value="" type="text" />
+										</fieldset>
+								</div>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup" data-mini="true">
+												<label for="textinput3">
+														Available Qty:
+												</label>
+												<input id="textinput3" placeholder="50000 EA" value="" type="text" />
+										</fieldset>
+								</div>
+						</div>
+				</div>
+				<ul data-role="listview" data-divider-theme="b" data-inset="true">
+						<li data-role="list-divider" role="heading">
+								Actions
+						</li>
+						<li data-theme="c">
+								<a href="#associate" data-transition="slide">
+										Associate
+								</a>
+						</li>
+						<li data-theme="c">
+								<a href="#transfer" data-transition="slide">
+										Transfer
+								</a>
+						</li>
+						<li data-theme="c">
+								<a href="#deassociate" data-transition="slide">
+										Deassociate
+								</a>
+						</li>
+						<li data-theme="c">
+								<a href="#split" data-transition="slide">
+										Split
+								</a>
+						</li>
+						<li data-theme="c">
+								<a href="#control-transfer" data-transition="slide">
+										Control Transfer
+								</a>
+						</li>
+				</ul>
+		</div>
 </div>
-
-<!-- ---- -->
-            
-        <table border="0" width="320" align="left" BGCOLOR="#cccccc">
-            <tr height="5">
-                <td width="51" align="RIGHT"><b>BU:</td>
-                <td width="77" align="left"><%= session.getAttribute("bu") %></td>
-                <td width="72" align="RIGHT"><b>Item ID:</td>
-                <td width="102" align="left"><%= session.getAttribute("item_id") %></td>
-            </tr>
-            <tr height="5">
-                <td align="left"><a href="/HHD/Search.jsp"><img height="20" width=25  border="0" src="images/search_icon.gif"></a></td>
-                <td colspan=3 align="CENTER"><%= session.getAttribute("item_desc") %></td>			
-            </tr>
-        </table>
-        <br><br><br><br>
-         
-        <table border="0"  width="320" align="left">
-            <html:form action="/Select">
-         
-                <% 
-                    int listCount=Integer.parseInt(request.getAttribute("listCount").toString());
-                    if (listCount>3){%>
-                <tr>
-                    <td>
-                        <table border="0" valign="top" width="320" align="center">
-                            <div id='contPresentTop'> <tr height="20" valign="bottom" >
-                                <td width="40%" align="center" colspan=7>
-                                    <html:submit property="submit" styleId="btnsubmit3"><bean:message key="button.condeassociate"/></html:submit>&nbsp;
-                                    <html:submit property="submit" styleId="btnsubmit1"><bean:message key="button.consplit"/></html:submit>&nbsp;
-                                    <html:submit property="submit" styleId="btnsubmit2"><bean:message key="button.contransfer"/></html:submit><br>
-                                </td>
-                            </tr></div>
-                            <div id='contAbsentTop'><tr height="20" valign="bottom" >
-                                <td width="40%" align="center" colspan=7>
-                                    <html:submit property="submit" styleId="btnsubmit4"><bean:message key="button.associate"/></html:submit>&nbsp;
-                                    <html:submit property="submit" styleId="btnsubmit5"><bean:message key="button.transfer"/></html:submit>
-                                </td>
-                            </tr></div>
-                        </table>
-                                
-                    </td>
-                </tr>
-            
-                <%}
-                    else{%>
-                <tr><td><input type=hidden id="btnsubmit1" name="phantomb1">
-                <input type=hidden id="btnsubmit2" name="phantomb2">
-                <input type=hidden id="btnsubmit3" name="phantomb3">
-                <input type=hidden id="btnsubmit4" name="phantomb4">
-                <input type=hidden id="btnsubmit5" name="phantomb5"></td></tr>
-                <%}%>
-            
-            
-           
-                <br>
-             
-         
-                <!---Column Header Start-->
-                <tr>
-                    <td>
-                        <table border="0" height="40" valign="top" id="tab<c:out value='${status.count}'/>"  width="320" align="left" BGCOLOR="#000000">
-                            <div id='divrad'> <tr height="10" >
-                                <td width=2%></td>
-                                <td width=53% align="center"><FONT COLOR="#FFFFFF"><b>Container</font></td>
-                                <td width=45% align="center" ><FONT COLOR="#FFFFFF"><b>Storage Location</font></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td align="center"><FONT COLOR="#FFFFFF"><b>Quantity</font></td>
-                                <td align="center"><FONT COLOR="#FFFFFF"><b>Available Quantity</font></td>
-                            </tr>
-                        </table>
-                        </div>
-                        <br><br>
-                    </td>
-                </tr>
-                
-                <!---Column Header End-->
-                <c:forEach var="output"  items="${ListForm.results}" varStatus="status">
-                    <tr>
-                        <td>
-                            <div id="d<c:out value='${status.count}'/>" onclick="javascript:document.getElementById('group<c:out value='${status.count}'/>').click();" onmouseover="this.style.cursor='hand';" >
-                                <table border="0" cellpadding=1 height="40" valign="top" id="tab<c:out value='${status.count}'/>"  width="320" align="left" BGCOLOR="#cccccc">
-                                    <div id='divrad'> <tr height="10" >
-                                        <td width=12%><input type="radio"  style="visibility:hidden"  
-                                        value="<c:if test="${output.container_id !=null}">${output.container_id}</c:if><c:if test="${output.container_id ==null}"> </c:if>|<bean:write name='output' property='storage_area'/>|<bean:write name='output' property='stor_level_1'/>|<bean:write name='output' property='stor_level_2'/>|<bean:write name='output' property='stor_level_3'/>|<bean:write name='output' property='qty'/>|<bean:write name='output' property='qty_avail'/>|<bean:write name='output' property='uom'/>"
-                                        id="group<c:out value='${status.count}'/>" 
-                                        name="radgroup" 
-                                        onClick="javascript:extracheck('tab<c:out value='${status.count}'/>','${output.container_id}')"></td></div>
-                                        <td width=32% ALIGN="left"><c:if test="${output.container_id ==null}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--</c:if><c:if test="${output.container_id !=null}">${output.container_id}</c:if></td>
-                                        <td width=16% align="center"><bean:write name="output" property="storage_area"/></td>
-                                        <td width=10% align="center"><bean:write name="output" property="stor_level_1"/></td>
-                                        <td width=10% align="center"><bean:write name="output" property="stor_level_2"/></td>
-                                        <td width=10% align="center"><bean:write name="output" property="stor_level_3"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td><c:if test="${output.container_id !=null}"><html:submit property="submit" styleId="btnflag" onmouseover="this.style.cursor='default';"><bean:message key="button.flag"/></html:submit></c:if></td>
-                                        <td ALIGN="center"><bean:write name="output" property="qty"/>&nbsp;<bean:write name="output" property="uom"/></td>
-                                        <td ALIGN="center" colspan="4"><bean:write name="output" property="qty_avail"/>&nbsp;<bean:write name="output" property="uom"/></td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <br><br>
-                        </td>
-                    </tr>
-                    
-
-                </c:forEach>
-                <tr>
-                    <td>
-                        <table border="0" valign="top" width="320" align="center">
-                            <div id='contPresentBot'> <tr height="20" valign="bottom">
-                                <td width="40%" align="center" colspan=7>
-                                    <html:submit property="submit" styleId="btnsubmit31"><bean:message key="button.condeassociate"/></html:submit>&nbsp;
-                                    <html:submit property="submit" styleId="btnsubmit11"><bean:message key="button.consplit"/></html:submit>&nbsp;
-                                    <html:submit property="submit" styleId="btnsubmit21"><bean:message key="button.contransfer"/></html:submit><br>
-                                </td>
-                            </tr></div>
-                            <div id='contAbsentBot'><tr height="20" valign="bottom" >
-                                <td width="40%" align="center" colspan=7>
-                            
-                                    <html:submit property="submit" styleId="btnsubmit41"><bean:message key="button.associate"/></html:submit>&nbsp;
-                                    <html:submit property="submit" styleId="btnsubmit51"><bean:message key="button.transfer"/></html:submit>
-                                </td>
-                            </tr></div>
-                        </table>
-                                
-                    </td>
-                </tr>
-                
-            </html:form>
-        </table> 
-
-    <SCRIPT type="text/javascript">
-        function initform()
-        {
-        
-
-        document.getElementById('divrad').style.visibility="hidden";
-
-        document.getElementById('btnsubmit1').disabled=true;
-        document.getElementById('btnsubmit2').disabled=true;
-        document.getElementById('btnsubmit3').disabled=true;
-        document.getElementById('btnsubmit4').disabled=true;
-        document.getElementById('btnsubmit5').disabled=true;
-        document.getElementById('btnsubmit11').disabled=true;
-        document.getElementById('btnsubmit21').disabled=true;
-        document.getElementById('btnsubmit31').disabled=true;
-        document.getElementById('btnsubmit41').disabled=true;
-        document.getElementById('btnsubmit51').disabled=true;
-        
-        
-        }
-        
-        function extracheck(tabid,conid)
-        {
-       
-        for (Count = 0; Count < document.forms[0].radgroup.length; Count++)
-        {
-        otab='tab'+(Count+1);
-        document.getElementById(otab).style.backgroundColor='#cccccc';
-        document.getElementById(otab).style.color='#000000';      
-        } 
-             
-        document.getElementById(tabid).style.backgroundColor='#000000';
-        document.getElementById(tabid).style.color='#cccccc';      
-
-          
-        if((conid==null)||(conid=="")){
-        document.getElementById('btnsubmit1').disabled=true;
-        document.getElementById('btnsubmit2').disabled=true;
-        document.getElementById('btnsubmit3').disabled=true;
-        document.getElementById('btnsubmit4').disabled=false;
-        document.getElementById('btnsubmit5').disabled=false;
-        document.getElementById('btnsubmit11').disabled=true;
-        document.getElementById('btnsubmit21').disabled=true;
-        document.getElementById('btnsubmit31').disabled=true;
-        document.getElementById('btnsubmit41').disabled=false;
-        document.getElementById('btnsubmit51').disabled=false;
-
-}
-        else{
-        document.getElementById('btnsubmit1').disabled=false;
-        document.getElementById('btnsubmit2').disabled=false;
-        document.getElementById('btnsubmit3').disabled=false;
-        document.getElementById('btnsubmit4').disabled=true;
-        document.getElementById('btnsubmit5').disabled=true;
-        document.getElementById('btnsubmit11').disabled=false;
-        document.getElementById('btnsubmit21').disabled=false;
-        document.getElementById('btnsubmit31').disabled=false;
-        document.getElementById('btnsubmit41').disabled=true;
-        document.getElementById('btnsubmit51').disabled=true;
-        
-        
-        }
-        }
-
-        
-
-    </SCRIPT>
-	
 <%@include file="includes/footer.jsp"%>
 
