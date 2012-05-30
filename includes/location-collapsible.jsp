@@ -1,4 +1,4 @@
-<div data-role="collapsible" data-collapsed="true" data-theme="e" data-content-theme="d">
+<div data-role="collapsible" data-collapsed="true" data-theme="c" data-content-theme="d">
 		<h3>
 				Location Selected: <span id="storage-location-text" class="storage-location-text">####</span>
 		</h3>

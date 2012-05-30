@@ -22,11 +22,25 @@ String err_msg = (String) request.getAttribute("err_msg");
         <style>
             /* App custom styles */
         </style>
-		
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
-        </script>
-        <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
-        </script>
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+				</script>
+				
+				
+				<script type="text/javascript">
+					// detects when the user refresh the page manually
+					var needRedirect = false;
+					$(document).on("mobileinit", function(){
+							console.log("init");
+							console.log(location);
+							var thisPage = location.hash;
+							if (thisPage != '' && thisPage != '#homepage' && thisPage != '#page1') {
+									needRedirect = true;
+							}
+					});
+				</script>
+				
+				<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js">
+				</script>
 		
     </head>
     <body>

@@ -1,4 +1,4 @@
-<div data-role="collapsible-set" data-theme="e" data-content-theme="d">
+<div data-role="collapsible-set" data-theme="c" data-content-theme="d">
 		<div data-role="collapsible" data-collapsed="true">
 				<h3>
 						Selected Item: <%= session.getAttribute("item_id") %> [<%= session.getAttribute("item_desc") %>]

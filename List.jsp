@@ -142,7 +142,7 @@
 		<!-- /sub-header -->
 		
 		<div data-role="content">
-			<form action="/Associate.do">
+			<form action="/HDD/Associate.do" method="post">
 				<%@include file="includes/itemdetails-collapsible.jsp"%>
 				
 				<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
@@ -173,17 +173,22 @@
 								<div data-role="fieldcontain">
 										<fieldset data-role="controlgroup">
 												<label for="textinput2">
-														Cont ID
+														Container ID
 												</label>
 												<input id="textinput2" placeholder="K00434224A" value="" type="text" />
 										</fieldset>
 								</div>
 								<div data-role="fieldcontain">
 										<fieldset data-role="controlgroup">
-												<label for="textinput3">
-														Stor Loc
+												<label for="storages">
+														Storage Location
 												</label>
-												<input id="textinput3" placeholder="RM 22 A 03" value="" type="text" />
+												<fieldset id="storages">
+													<input id="to_storage_area" name="to_storage_area" placeholder="ARROW" value="" type="text" size="6" style="width:75px;"/>
+													<input id="to_storage_area" name="to_stor_level_1" placeholder="RM" value="" type="text" size="4" style="width:75px;"/>
+													<input id="to_storage_area" name="to_stor_level_2" placeholder="22" value="" type="text" size="2" style="width:25px;"/>
+													<input id="to_storage_area" name="to_stor_level_3" placeholder="A" value="" type="text" size="2" style="width:25px;"/>
+												</fieldset>
 										</fieldset>
 								</div>
 						</div>
@@ -201,6 +206,14 @@
 	
 	$(function(){
 		populateActionDetails();
+	});
+	
+	// go to the main page in case the page is refreshed by the user.
+	$(document).on('pageinit', function(e){
+		if (needRedirect) {
+			$.mobile.changePage("#list-do", {transition: "flip", reverse:true, changeHash:true});
+			needRedirect = false;
+		}		
 	});
 	
 	function isEmptyOrNull(str){
