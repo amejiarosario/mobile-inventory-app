@@ -1,24 +1,19 @@
         <script>
             //App custom javascript
-						var listDoPage;
-						$(document).ready(function(){
+
+						$(function(){
 							markSelectedItemInListView();
-							
-							$('#actions').on('pagebeforeshow', function(e,data){
-								console.log('hey');
-								var storageArea = $('.amr-selected #storage-area', data.prevPage).text().trim().replace(/\W+/g," ");
-								console.log(storageArea);
-								listDoPage = data.prevPage;
-								console.log(listDoPage);
-								$('#storage-location').val(storageArea);
+							$(document).on('pageinit',function(){
+								markSelectedItemInListView();
 							});
 						});
 						
-						
 						function markSelectedItemInListView(){
-							$('ul[data-role="listview"]:first li').on('click', function(){
-								console.log("done");
+							$('ul[data-role="listview"] li .ui-btn-text').on('click', function(){
+								$('.amr-selected').removeClass('amr-selected');
 								$(this).addClass("amr-selected");
+								console.log('marked ==> ');
+								console.log($(this));
 							});
 						}
         </script>

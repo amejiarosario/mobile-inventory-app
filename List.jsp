@@ -8,8 +8,8 @@
 				<h3>
 						Item Locations
 				</h3>
-				<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
-						Back
+				<a data-role="button" data-direction="reverse" data-transition="flip" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
+						Search Item
 				</a>
 		</div>
 		<!-- /sub-header -->
@@ -70,15 +70,22 @@
 										<bean:write name="output" property="stor_level_3"/>	
 									</div>
 									<div>
-										<bean:write name="output" property="qty"/> <bean:write name="output" property="uom"/> |
-										<bean:write name="output" property="qty_avail"/>
-										<bean:write name="output" property="uom"/>	|
-										<c:if test="${output.container_id ==null}">
-											--
-										</c:if>
-										<c:if test="${output.container_id !=null}">
-											${output.container_id}
-										</c:if>
+										<span id="qty">
+											<bean:write name="output" property="qty"/> 
+											<bean:write name="output" property="uom"/> |
+										</span>
+										<span id="qty_avail">
+											<bean:write name="output" property="qty_avail"/>
+											<bean:write name="output" property="uom"/>
+										</span>	|
+										<span id="container_id">
+											<c:if test="${output.container_id ==null}">
+												--
+											</c:if>
+											<c:if test="${output.container_id !=null}">
+												${output.container_id}
+											</c:if>
+										</span>
 									</div>
 								</a>
 						</li>
@@ -97,7 +104,7 @@
 				<h3>
 						Perform Action
 				</h3>
-				<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
+				<a data-role="button" data-direction="reverse" data-transition="slide" data-theme="b" href="#list-do" data-icon="arrow-l" data-iconpos="left">
 						Back
 				</a>
 		</div>
@@ -106,21 +113,12 @@
 		<!-- show errors -->
 		<html:errors/>
 		
-		
 		<div data-role="content">
 				<div data-role="collapsible-set" data-theme="e" data-content-theme="d">
 						<div data-role="collapsible" data-collapsed="true">
 								<h3>
-										Location Selected: ####
+										Location Selected: <span id="storage-location-text">####</span>
 								</h3>
-								<div data-role="fieldcontain">
-										<fieldset data-role="controlgroup" data-mini="true">
-												<label for="textinput1">
-														Container Qty:
-												</label>
-												<input id="textinput1" placeholder="50000 EA" value="" type="text" />
-										</fieldset>
-								</div>
 								<div data-role="fieldcontain">
 										<fieldset data-role="controlgroup" data-mini="true">
 												<label for="storage-location">
@@ -131,10 +129,26 @@
 								</div>
 								<div data-role="fieldcontain">
 										<fieldset data-role="controlgroup" data-mini="true">
-												<label for="textinput3">
+												<label for="container">
+														Container:
+												</label>
+												<input id="container" value="" type="text" />
+										</fieldset>
+								</div>								
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup" data-mini="true">
+												<label for="qty-val">
+														Quantity:
+												</label>
+												<input id="qty-val" value="" type="text" />
+										</fieldset>
+								</div>
+								<div data-role="fieldcontain">
+										<fieldset data-role="controlgroup" data-mini="true">
+												<label for="qty-avail-val">
 														Available Qty:
 												</label>
-												<input id="textinput3" placeholder="50000 EA" value="" type="text" />
+												<input id="qty-avail-val" value="" type="text" />
 										</fieldset>
 								</div>
 						</div>
@@ -164,8 +178,8 @@
 								</a>
 						</li>
 						<li data-theme="c">
-								<a href="#control-transfer" data-transition="slide">
-										Control Transfer
+								<a href="#container-transfer" data-transition="slide">
+										Container Transfer
 								</a>
 						</li>
 				</ul>
@@ -182,7 +196,7 @@
 				<h3>
 						Associate
 				</h3>
-				<a data-role="button" data-direction="reverse" data-rel="back" data-transition="fade" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
+				<a data-role="button" data-direction="reverse" data-transition="slide" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
 						Back
 				</a>
 		</div>
@@ -230,9 +244,39 @@
 				
 				<input type="submit" value="Submit" data-inline="true" data-theme="b" />
 		</div>		
-		
-	
 </div>
 
+<script>
+	$(function(){
+		populateActionDetails();
+	});
+	
+	function populateActionDetails(){
+		$('#actions').on('pageshow', function(e,data){
+			
+			console.log("#action.beforeshow'");
+			console.log($('.amr-selected'));
+			
+			var storageArea = $('.amr-selected #storage-area', data.prevPage).text().trim().replace(/\W+/g," ");
+			var qty = $('.amr-selected #qty', data.prevPage).text().trim().replace(/\W+/g," ");
+			var qty_avail = $('.amr-selected #qty_avail', data.prevPage).text().trim().replace(/\W+/g," ");
+			var container_id = $('.amr-selected #container_id', data.prevPage).text().trim().replace(/\W+/g," ");
+			
+			console.log(storageArea);
+			console.log(qty);
+			console.log(qty_avail);
+			console.log(container_id);
+			
+			
+			listDoPage = data.prevPage;
+			//console.log(listDoPage);
+			$('#storage-location').val(storageArea);
+			$('#storage-location-text').text(storageArea);
+			$('#container').val(container_id);
+			$('#qty-val').val(qty);
+			$('#qty-avail-val').val(qty_avail);
+		});						
+	}
+</script>
 <%@include file="includes/footer.jsp"%>
 
