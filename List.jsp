@@ -157,27 +157,27 @@
 						<li data-role="list-divider" role="heading">
 								Actions
 						</li>
-						<li data-theme="c">
+						<li data-theme="c" class="container-context-hide">
 								<a href="#associate" data-transition="slide">
 										Associate
 								</a>
 						</li>
-						<li data-theme="c">
+						<li data-theme="c" class="container-context-hide">
 								<a href="#transfer" data-transition="slide">
 										Transfer
 								</a>
 						</li>
-						<li data-theme="c">
+						<li data-theme="c" class="container-context-show">
 								<a href="#deassociate" data-transition="slide">
 										Deassociate
 								</a>
 						</li>
-						<li data-theme="c">
+						<li data-theme="c" class="container-context-show">
 								<a href="#split" data-transition="slide">
 										Split
 								</a>
 						</li>
-						<li data-theme="c">
+						<li data-theme="c" class="container-context-show">
 								<a href="#container-transfer" data-transition="slide">
 										Container Transfer
 								</a>
@@ -251,6 +251,10 @@
 		populateActionDetails();
 	});
 	
+	function isEmptyOrNull(str){
+		return str === null || str === "" || /\W+/g.test(str)
+	}
+	
 	function populateActionDetails(){
 		$('#actions').on('pageshow', function(e,data){
 			
@@ -261,6 +265,17 @@
 			var qty = $('.amr-selected #qty', data.prevPage).text().trim().replace(/\W+/g," ");
 			var qty_avail = $('.amr-selected #qty_avail', data.prevPage).text().trim().replace(/\W+/g," ");
 			var container_id = $('.amr-selected #container_id', data.prevPage).text().trim().replace(/\W+/g," ");
+
+			console.log("<"+container_id+">");
+			if(isEmptyOrNull(container_id)){
+				$('.container-context-show').hide();
+				$('.container-context-hide').show();
+				console.log('no-container');
+			} else {
+				$('.container-context-show').show();
+				$('.container-context-hide').hide();
+				console.log('has-container');
+			}
 			
 			console.log(storageArea);
 			console.log(qty);
