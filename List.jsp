@@ -19,37 +19,8 @@
 
 		<!-- show details  -->
 		<div data-role="content">
-				<div data-role="collapsible-set" data-theme="e" data-content-theme="d">
-						<div data-role="collapsible" data-collapsed="true">
-								<h3>
-										Selected Item: <%= session.getAttribute("item_id") %> [<%= session.getAttribute("item_desc") %>]
-								</h3>
-								<div data-role="fieldcontain">
-										<fieldset data-role="controlgroup" data-mini="true">
-												<label for="textinput1">
-														BU:
-												</label>
-												<input id="textinput1" value="<%= session.getAttribute("bu") %>" type="text" readonly="readonly" />
-										</fieldset>
-								</div>
-								<div data-role="fieldcontain">
-										<fieldset data-role="controlgroup">
-												<label for="item-id">
-														Item ID:
-												</label>
-												<input id="item-id" value="<%= session.getAttribute("item_id") %>" type="text" readonly="readonly" />
-										</fieldset>
-								</div>
-								<div data-role="fieldcontain">
-										<fieldset data-role="controlgroup">
-												<label for="textinput3">
-														Description:
-												</label>
-												<input id="textinput3" value='<%= session.getAttribute("item_desc") %>' type="text" readonly="readonly" size="80"/>
-										</fieldset>
-								</div>
-						</div>
-				</div>
+				<%@include file="includes/itemdetails-collapsible.jsp"%>
+				
 				<ul data-role="listview" data-divider-theme="b" data-inset="true">
 						<!-- Table Header -->
 						<li data-role="list-divider" role="heading">
@@ -115,43 +86,11 @@
 		
 		<div data-role="content">
 				<div data-role="collapsible-set" data-theme="e" data-content-theme="d">
-						<div data-role="collapsible" data-collapsed="true">
-								<h3>
-										Location Selected: <span id="storage-location-text">####</span>
-								</h3>
-								<div data-role="fieldcontain">
-										<fieldset data-role="controlgroup" data-mini="true">
-												<label for="storage-location">
-														Storage Location:
-												</label>
-												<input id="storage-location" value="" type="text" /> <!-- placeholder="ARROW	01	AA	02" -->
-										</fieldset>
-								</div>
-								<div data-role="fieldcontain">
-										<fieldset data-role="controlgroup" data-mini="true">
-												<label for="container">
-														Container:
-												</label>
-												<input id="container" value="" type="text" />
-										</fieldset>
-								</div>								
-								<div data-role="fieldcontain">
-										<fieldset data-role="controlgroup" data-mini="true">
-												<label for="qty-val">
-														Quantity:
-												</label>
-												<input id="qty-val" value="" type="text" />
-										</fieldset>
-								</div>
-								<div data-role="fieldcontain">
-										<fieldset data-role="controlgroup" data-mini="true">
-												<label for="qty-avail-val">
-														Available Qty:
-												</label>
-												<input id="qty-avail-val" value="" type="text" />
-										</fieldset>
-								</div>
-						</div>
+						
+						<!-- Collapsible Location Info -->
+						<%@include file="includes/location-collapsible.jsp"%>
+						<!-- /Collapsible Location Info -->
+
 				</div>
 				<ul data-role="listview" data-divider-theme="b" data-inset="true">
 						<li data-role="list-divider" role="heading">
@@ -196,24 +135,32 @@
 				<h3>
 						Associate
 				</h3>
-				<a data-role="button" data-direction="reverse" data-transition="slide" data-theme="b" href="/HHD/selectinv.do" data-icon="arrow-l" data-iconpos="left">
-						Back
+				<a data-role="button" data-direction="reverse" data-transition="flip" data-theme="b" href="#list-do" data-icon="arrow-l" data-iconpos="left">
+						List
 				</a>
 		</div>
 		<!-- /sub-header -->
 		
 		<div data-role="content">
+			<form action="/Associate.do">
+				<%@include file="includes/itemdetails-collapsible.jsp"%>
+				
 				<div data-role="collapsible-set" data-theme="b" data-content-theme="d">
 						<div data-role="collapsible" data-collapsed="false">
 								<h3>
 										Original Location
 								</h3>
+								
+								<!-- Collapsible Location Info -->
+								<%@include file="includes/location-collapsible.jsp"%>
+								<!-- /Collapsible Location Info -->
+								
 								<div data-role="fieldcontain">
 										<fieldset data-role="controlgroup">
-												<label for="textinput1">
+												<label for="qty">
 														Quantity:
 												</label>
-												<input id="textinput1" placeholder="" value="" type="text" />
+												<input id="qty" name="qty" value="" type="text" />
 										</fieldset>
 								</div>
 						</div>
@@ -241,12 +188,17 @@
 								</div>
 						</div>
 				</div>
-				
 				<input type="submit" value="Submit" data-inline="true" data-theme="b" />
+			</form>
 		</div>		
 </div>
 
 <script>
+	var storageArea;
+	var qty;
+	var qty_avail;
+	var container_id;
+	
 	$(function(){
 		populateActionDetails();
 	});
@@ -261,10 +213,10 @@
 			console.log("#action.beforeshow'");
 			console.log($('.amr-selected'));
 			
-			var storageArea = $('.amr-selected #storage-area', data.prevPage).text().trim().replace(/\W+/g," ");
-			var qty = $('.amr-selected #qty', data.prevPage).text().trim().replace(/\W+/g," ");
-			var qty_avail = $('.amr-selected #qty_avail', data.prevPage).text().trim().replace(/\W+/g," ");
-			var container_id = $('.amr-selected #container_id', data.prevPage).text().trim().replace(/\W+/g," ");
+			storageArea = $('.amr-selected #storage-area', data.prevPage).text().trim().replace(/\W+/g," ");
+			qty = $('.amr-selected #qty', data.prevPage).text().trim().replace(/\W+/g," ");
+			qty_avail = $('.amr-selected #qty_avail', data.prevPage).text().trim().replace(/\W+/g," ");
+			container_id = $('.amr-selected #container_id', data.prevPage).text().trim().replace(/\W+/g," ");
 
 			console.log("<"+container_id+">");
 			if(isEmptyOrNull(container_id)){
@@ -282,14 +234,12 @@
 			console.log(qty_avail);
 			console.log(container_id);
 			
-			
-			listDoPage = data.prevPage;
 			//console.log(listDoPage);
-			$('#storage-location').val(storageArea);
-			$('#storage-location-text').text(storageArea);
-			$('#container').val(container_id);
-			$('#qty-val').val(qty);
-			$('#qty-avail-val').val(qty_avail);
+			$('.storage-location').val(storageArea);
+			$('.storage-location-text').text(storageArea);
+			$('.container').val(container_id);
+			$('.qty-val').val(qty);
+			$('.qty-avail-val').val(qty_avail);
 		});						
 	}
 </script>

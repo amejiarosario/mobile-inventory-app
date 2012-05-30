@@ -1,6 +1,5 @@
         <script>
             //App custom javascript
-
 						$(function(){
 							markSelectedItemInListView();
 							$(document).on('pageinit',function(){
